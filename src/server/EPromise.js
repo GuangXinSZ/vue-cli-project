@@ -60,7 +60,6 @@ function validateEleForm (form) {
   })
 }
 
-
 export default {
   messageBox,
   showToast,
