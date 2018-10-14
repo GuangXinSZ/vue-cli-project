@@ -1,3 +1,11 @@
+/**
+* 作者： liuGuangXin 2018/10/14
+
+** title: 使用组件规则
+*     1: 需自己配置上传地址
+*     2: 显示图片可自己配置，目前暂无后台用的是死的。
+*     3: 使用v-model绑定组件。
+*/
 <template>
   <div class="container">
     <el-upload class="avatar-uploader" :action="upLoadUrl" :show-file-list="false" :on-success="onSuccess" :before-upload="beforeUpload">
@@ -25,9 +33,22 @@ export default {
     }
   },
   methods: {
-    beforeUpload () {
+    beforeUpload (file) {
+      const isJPG = file.type === 'image/jpeg' || 'image/png' || 'image/jpg'
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+
+      return isJPG && isLt2M
     },
-    onSuccess () {
+    onSuccess (res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+      this.$emit('input', file[0])
     }
   },
   mounted () {
