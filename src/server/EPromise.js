@@ -1,3 +1,16 @@
+/**
+ * Author: liuGuangXin
+ * title: 使用规则
+ *  1：由于此类都属于Promise await化，使用请遵循以下规则。
+ *  2：每一个函数都必须是asyn函数，返回结果为True, False 
+ *     例子: methods: {
+                async deleteMonth () {
+                  let res = await EPromise.Message('信息')
+                  if (!res) { retur }
+                }
+            }
+    3: 如果喜欢此项目，请点颗start。谢谢！！！
+ */
 import { Message, MessageBox } from 'element-ui'
 
 function messageBox (propmt) {

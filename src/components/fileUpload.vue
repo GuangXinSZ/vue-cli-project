@@ -1,5 +1,5 @@
 /**
-* 作者： liuGuangXin 2018/10/14
+* Author：liuGuangXin 2018/10/14
 
 ** title: 使用组件规则
 *     1: 需自己配置上传地址
