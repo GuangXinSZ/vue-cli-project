@@ -1,16 +1,19 @@
 <template>
   <div class="container">
     hello world
+    <file-upload></file-upload>
   </div>
 </template>
 
 <script>
 import api from '@/server/api'
+import fileUpload from '../../components/fileUpload'
 import {mapMutations, mapGetters} from 'vuex'
 
 export default {
   name: 'home',
   components: {
+    fileUpload
   },
   computed: {
     ...mapGetters([
