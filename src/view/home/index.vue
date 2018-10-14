@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <mt-button type="primary">hello world</mt-button>
+    hello world
   </div>
 </template>
 
@@ -31,10 +31,6 @@ export default {
       // 调用接口例子
       let res = await api.fetchCycle()
       console.log(res)
-      // 使用vuex列子
-      console.log(this.city)
-      this.set_city('广东')
-      console.log(this.city)
     }
   },
   created () {

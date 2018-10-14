@@ -1,5 +1,4 @@
-import { Loading, Message, MessageBox } from 'element-ui'
-
+import { Message, MessageBox } from 'element-ui'
 
 function messageBox (propmt) {
   return new Promise((resolve, reject) => {
@@ -10,7 +9,7 @@ function messageBox (propmt) {
     }).then(() => {
       resolve(true)
     }).catch(() => {
-      reject(false)
+      reject(new Error(false))
     })
   })
 }
@@ -21,7 +20,7 @@ function isSubmitEnable (form) {
       if (valid) {
         resolve(true)
       } else {
-        reject(false)
+        reject(new Error(false))
       }
     })
   })
@@ -29,6 +28,10 @@ function isSubmitEnable (form) {
 
 function showToast (msg, icons) {
   Message({message: `${msg}`, type: `${icons}`})
+}
+
+function closeToast (enable, msg, icons) {
+  Message({showClose: `${enable}`, message: `${msg}`, type: `${icons}`})
 }
 
 function errMessage (msg) {
@@ -53,7 +56,7 @@ function validateEleForm (form) {
   return new Promise((resolve, reject) => {
     form.validate(valid => {
       if (!valid) {
-        return reject()
+        reject(new Error(false))
       }
       resolve()
     })
@@ -63,7 +66,9 @@ function validateEleForm (form) {
 export default {
   messageBox,
   showToast,
+  closeToast,
   errMessage,
   isSubmitEnable,
+  readFile,
   validateEleForm
 }
