@@ -1,6 +1,6 @@
 /**
 * Author：liuGuangXin 2018/10/14
-* 使用方式: 
+* 使用方式:
 *    1: 此组件使用v-model绑定组件。(如果不懂v-model绑定组件请自行查看api!)
 *    2：select列表许传入，select大小自由控制。
 */
