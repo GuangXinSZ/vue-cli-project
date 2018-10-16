@@ -1,19 +1,23 @@
 <template>
   <div class="container">
-    hello world
     <file-upload></file-upload>
+    <!--使用列子-->
+    {{ value }}
+    <select-item :list="options" :size="size" v-model="value"></select-item>
   </div>
 </template>
 
 <script>
 import api from '@/server/api'
-import fileUpload from '../../components/fileUpload'
 import {mapMutations, mapGetters} from 'vuex'
+import fileUpload from '../../components/fileUpload'
+import selectItem from '../../components/selectItem'
 
 export default {
   name: 'home',
   components: {
-    fileUpload
+    fileUpload,
+    selectItem
   },
   computed: {
     ...mapGetters([
@@ -23,7 +27,25 @@ export default {
   data () {
     return {
       fileList: [],
-      citys: []
+      citys: [],
+      size: 'mini',
+      value: '',
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }, {
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
+      }]
     }
   },
   methods: {
