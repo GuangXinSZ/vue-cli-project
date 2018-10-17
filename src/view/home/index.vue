@@ -1,15 +1,17 @@
 <template>
   <div class="container">
     <file-upload></file-upload>
-    <!--使用列子-->
-    {{ value }}
-    <select-item :list="options" :size="size" v-model="value"></select-item>
+    <div>
+      <el-button :class="{'bg': item.active}" v-for="(item, index) in selectButton" :key="index" @click="btnClick(item, index)">{{item.name}}</el-button>
+    </div>
+    {{ arr }}
   </div>
 </template>
 
 <script>
 import api from '@/server/api'
 import {mapMutations, mapGetters} from 'vuex'
+// import _ from 'lodash'
 import fileUpload from '../../components/fileUpload'
 import selectItem from '../../components/selectItem'
 
@@ -30,22 +32,13 @@ export default {
       citys: [],
       size: 'mini',
       value: '',
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }]
+      selectButton: [
+        {id: 1, name: '1', active: false},
+        {id: 2, name: '2', active: false},
+        {id: 3, name: '3', active: false}
+      ],
+      currIndex: 0,
+      arr: []
     }
   },
   methods: {
@@ -56,6 +49,19 @@ export default {
       // 调用接口例子
       let res = await api.fetchCycle()
       console.log(res)
+    },
+    btnClick (item, index) {
+      if (item.active) {
+        this.$set(item, 'active', false)
+        for (let i = 0; i < this.arr.length; i++) {
+          if (this.arr[i].id === item.id) {
+            this.arr.splice(i, 1)
+          }
+        }
+      } else {
+        this.arr.push(item)
+        this.$set(item, 'active', true)
+      }
     }
   },
   created () {
@@ -66,5 +72,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
+.bg {
+  background: red;
+}
 </style>
