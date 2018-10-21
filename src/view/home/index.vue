@@ -5,7 +5,9 @@
       <el-button :class="{'bg': item.active}" v-for="(item, index) in selectButton" :key="index" @click="btnClick(item, index)">{{item.name}}</el-button>
     </div>
     {{ arr }}
-    <remote-querry></remote-querry>
+    <!--使用方式-->
+    <remote-querry :list="arrList" v-model="querryFuzzy"></remote-querry>
+    {{ querryFuzzy }}
   </div>
 </template>
 
@@ -41,7 +43,14 @@ export default {
         {id: 3, name: '3', active: false}
       ],
       currIndex: 0,
-      arr: []
+      arr: [],
+      querryFuzzy: null,
+      arrList: [
+        { 'value': '三全鲜食（北新泾店）', 'address': '长宁区新渔路144号' },
+        { 'value': 'Hot honey 首尔炸鸡（仙霞路）', 'address': '上海市长宁区淞虹路661号' },
+        { 'value': '新旺角茶餐厅', 'address': '上海市普陀区真北路988号创邑金沙谷6号楼113' },
+        { 'value': '泷千家(天山西路店)', 'address': '天山西路438号' }
+      ]
     }
   },
   methods: {

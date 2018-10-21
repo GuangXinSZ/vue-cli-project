@@ -10,13 +10,17 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   props: ['value', 'list'],
   components: {
   },
   computed: {
     loadAll () {
-      return this.list
+      return _.map(this.list, (o) => {
+        return {value: o.value, address: o.address}
+      })
     }
   },
   data () {
@@ -28,10 +32,16 @@ export default {
   },
   methods: {
     querySearchAsync (queryString, cb) {
-      let restAurants = this.restAurants
-      let res = queryString ? restAurants.filter(this.createStateFilter(queryString)) : restAurants
+      let [restAurants, res] = [this.restAurants, null]
+
+      if (queryString) {
+        res = restAurants.filter(this.createStateFilter(queryString))
+      } else {
+        res = restAurants
+      }
 
       clearTimeout(this.timeOut)
+
       this.timeOut = setTimeout(() => {
         cb(res)
       }, 3000 * Math.random())
@@ -41,7 +51,7 @@ export default {
         return (state.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
       }
     },
-    handleSelect (item) {
+    handleSelect () {
       this.$emit('input', this.querryValue)
     }
   },
