@@ -5,6 +5,7 @@
       <el-button :class="{'bg': item.active}" v-for="(item, index) in selectButton" :key="index" @click="btnClick(item, index)">{{item.name}}</el-button>
     </div>
     {{ arr }}
+    <remote-querry></remote-querry>
   </div>
 </template>
 
@@ -14,12 +15,14 @@ import {mapMutations, mapGetters} from 'vuex'
 // import _ from 'lodash'
 import fileUpload from '../../components/fileUpload'
 import selectItem from '../../components/selectItem'
+import remoteQuerry from '../../components/remoteQuerry'
 
 export default {
   name: 'home',
   components: {
     fileUpload,
-    selectItem
+    selectItem,
+    remoteQuerry
   },
   computed: {
     ...mapGetters([
