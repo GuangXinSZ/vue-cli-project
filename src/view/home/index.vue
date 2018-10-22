@@ -14,7 +14,6 @@
 <script>
 import api from '@/server/api'
 import {mapMutations, mapGetters} from 'vuex'
-// import _ from 'lodash'
 import fileUpload from '../../components/fileUpload'
 import selectItem from '../../components/selectItem'
 import remoteQuerry from '../../components/remoteQuerry'
