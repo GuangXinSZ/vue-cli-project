@@ -1,13 +1,14 @@
 <template>
   <div class="container">
-    <file-upload></file-upload>
+    <!-- <file-upload></file-upload>
     <div>
       <el-button :class="{'bg': item.active}" v-for="(item, index) in selectButton" :key="index" @click="btnClick(item, index)">{{item.name}}</el-button>
     </div>
     {{ arr }}
-    <!--使用方式-->
+    使用方式
     <remote-querry :list="arrList" v-model="querryFuzzy"></remote-querry>
-    {{ querryFuzzy }}
+    {{ querryFuzzy }} -->
+    <search-history></search-history>
   </div>
 </template>
 
@@ -17,13 +18,15 @@ import {mapMutations, mapGetters} from 'vuex'
 import fileUpload from '../../components/fileUpload'
 import selectItem from '../../components/selectItem'
 import remoteQuerry from '../../components/remoteQuerry'
+import searchHistory from '../../components/searchHistory'
 
 export default {
   name: 'home',
   components: {
     fileUpload,
     selectItem,
-    remoteQuerry
+    remoteQuerry,
+    searchHistory
   },
   computed: {
     ...mapGetters([
