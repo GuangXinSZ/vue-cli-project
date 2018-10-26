@@ -1,4 +1,6 @@
-# web-chat-app
+## 目录结构
+# title
+  
 
 > A Vue.js project
 
@@ -30,4 +32,4 @@ npm test
   cnpm install
   cnpm run dev (localhost:8080)
 
-# 特注本项目开启了eslint 如需关闭eslint请手动自行关闭
+
