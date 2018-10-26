@@ -51,21 +51,21 @@ export default {
       if (!this.inputValue || this.inputValue.trim() === '') {
         return
       }
-      this.$emit('handleOut', this.inputValue)
-      this.arrHistory = _.union(this.arrHistory, [this.inputValue])
+      this.$emit('handleOut', this.inputValue) // 抛出value值
+      this.arrHistory = _.union(this.arrHistory, [this.inputValue]) // 如果数组里面有这个值 则不添加 没有则添加
       if (this.arrHistory.length > 6) {
-        this.arrHistory = _.drop(this.arrHistory)
+        this.arrHistory = _.drop(this.arrHistory) // 删除第一个
       }
 
-      localStorage.setItem(this.name, JSON.stringify(this.arrHistory))
+      localStorage.setItem(this.name, JSON.stringify(this.arrHistory)) // JSON.stringify 以数组的形式保存
     },
     deleteTag (tag) {
-      this.arrHistory = _.without(this.arrHistory, tag)
+      this.arrHistory = _.without(this.arrHistory, tag) // without 删除arrHistory 里面的tag
       localStorage.setItem(this.name, JSON.stringify(this.arrHistory))
     },
     handleTag (res) {
       this.inputValue = res
-      this.$emit('handleOut', res)
+      this.$emit('handleOut', res) // 抛出value值
     }
   },
   mounted () {
