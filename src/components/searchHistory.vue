@@ -1,3 +1,11 @@
+/**
+* Author：liuGuangXin 2018/10/26
+
+** title: 使用组件规则
+*     1: 需传入localStorage的名字
+*     2: 需在组件上绑定handleOut事件，接收res。
+*     3：引入lodash。
+*/
 <template>
   <div class="search-history">
     <div class="search-input">
