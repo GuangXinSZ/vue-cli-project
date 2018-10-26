@@ -1,17 +1,29 @@
 <template>
   <div class="search-history">
     <div class="search-input">
-      <el-input class="input" size="medium" v-model="inputValue" placeholder="请输入内容" @keyup.enter.native="handleSearch"></el-input>
-      <el-button type="primary" size="medium" @click="handleSearch">搜索</el-button>
+      <el-input class="input" size="medium" v-model="inputValue" placeholder="请输入内容" @keyup.enter.native="historyQuery"></el-input>
+      <el-button type="primary" size="medium" @click="historyQuery">搜索</el-button>
     </div>
     <div class="search-list">
-      <ul></ul>
+      <el-tag
+        class="tag"
+        v-for="tag in arrHistory"
+        :key="tag"
+        closable
+        @click.native="handleTag(tag)"
+        @close="deleteTag(tag)"
+        >
+        {{tag}}
+      </el-tag>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
+  props: ['name'],
   components: {
   },
   computed: {
@@ -19,22 +31,39 @@ export default {
   data () {
     return {
       inputValue: '',
-      fuzzy: ['1']
+      arrHistory: []
     }
   },
   methods: {
+    getArrHistoryList () {
+      let res = localStorage.getItem(this.name)
+      this.arrHistory = JSON.parse(res)
+    },
     historyQuery () {
-      this.fuzzy = this.inputValue
-
-      if (!this.fuzzy || this.fuzzy.trim() === '') {
+      if (!this.inputValue || this.inputValue.trim() === '') {
         return
       }
-      console.log('res')
+      this.$emit('handleOut', this.inputValue)
+      this.arrHistory = _.union(this.arrHistory, [this.inputValue])
+      if (this.arrHistory.length > 6) {
+        this.arrHistory = _.drop(this.arrHistory)
+      }
+
+      localStorage.setItem(this.name, JSON.stringify(this.arrHistory))
+    },
+    deleteTag (tag) {
+      this.arrHistory = _.without(this.arrHistory, tag)
+      localStorage.setItem(this.name, JSON.stringify(this.arrHistory))
+    },
+    handleTag (res) {
+      this.inputValue = res
+      this.$emit('handleOut', res)
     }
   },
   mounted () {
   },
   created () {
+    this.getArrHistoryList()
   }
 }
 </script>
@@ -47,6 +76,13 @@ export default {
 
     .input {
       width: 180px;
+    }
+  }
+
+  .search-list {
+    margin-top: 10px;
+    .tag + .tag {
+      margin-left: 8px;
     }
   }
 }

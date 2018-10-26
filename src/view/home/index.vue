@@ -8,7 +8,7 @@
     使用方式
     <remote-querry :list="arrList" v-model="querryFuzzy"></remote-querry>
     {{ querryFuzzy }} -->
-    <search-history></search-history>
+    <search-history :name="historyName" @handleOut="querrySearch"></search-history>
   </div>
 </template>
 
@@ -52,7 +52,8 @@ export default {
         { 'value': 'Hot honey 首尔炸鸡（仙霞路）', 'address': '上海市长宁区淞虹路661号' },
         { 'value': '新旺角茶餐厅', 'address': '上海市普陀区真北路988号创邑金沙谷6号楼113' },
         { 'value': '泷千家(天山西路店)', 'address': '天山西路438号' }
-      ]
+      ],
+      historyName: 'arr_history'
     }
   },
   methods: {
@@ -76,6 +77,9 @@ export default {
         this.arr.push(item)
         this.$set(item, 'active', true)
       }
+    },
+    querrySearch (value) {
+      console.log(value)
     }
   },
   created () {
