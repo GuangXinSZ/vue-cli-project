@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     getArrHistoryList () {
-      let res = localStorage.getItem(this.name)
+      let res = localStorage.getItem(this.name) || null
       this.arrHistory = JSON.parse(res)
     },
     historyQuery () {
