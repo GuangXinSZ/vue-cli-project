@@ -1,33 +1,9 @@
-# web-chat-app
-
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
-```
-
-作者: xin
-
-# 项目运行
-  cnpm install
-  cnpm run dev (localhost:8080)
-
-# 特注本项目开启了eslint 如需关闭eslint请手动自行关闭
+## 目录结构
+> 1：component (存放组建)
+>> 2：config （配置文件）
+>>> 3：router （路由）
+>>>> 4：server （axios配置, elementUI 组件promise）
+>>>>> 5: store (vuex)
+>>>>>> 6: utils (存放一些原生js写法)
+## 当前封装组建
+> 分页，搜索历史，远程搜索，select，图片上传，prmise包elementUI组建。
