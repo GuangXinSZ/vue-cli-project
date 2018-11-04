@@ -26,7 +26,7 @@ export default {
         this.$message.error('账号密码不能为空')
         return
       }
-      sessionStorage.setItem()
+      sessionStorage.setItem('user_name', this.from.user)
     }
   },
   mounted () {
