@@ -8,6 +8,7 @@
     使用方式
     <remote-querry :list="arrList" v-model="querryFuzzy"></remote-querry>
     {{ querryFuzzy }} -->
+    <div>测试</div>
     <search-history :name="historyName" @handleOut="querrySearch"></search-history>
   </div>
 </template>
