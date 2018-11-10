@@ -1,10 +1,4 @@
-<!--
- * 分页组件
- *
- * @date     2018-10-1
- * @author   <liuGuangXin>
--->
-<template>
+template>
   <div class="align-center">
     <el-pagination
       @size-change="handleSizeChange"
