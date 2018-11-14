@@ -10,6 +10,8 @@
     {{ querryFuzzy }} -->
     <div>测试</div>
     <search-history :name="historyName" @handleOut="querrySearch"></search-history>
+    <div>3</div>
+    <tag-querry></tag-querry>
   </div>
 </template>
 
@@ -20,6 +22,7 @@ import fileUpload from '../../components/fileUpload'
 import selectItem from '../../components/selectItem'
 import remoteQuerry from '../../components/remoteQuerry'
 import searchHistory from '../../components/searchHistory'
+import tagQuerry from '../../components/tagQuerry'
 
 export default {
   name: 'home',
@@ -27,7 +30,8 @@ export default {
     fileUpload,
     selectItem,
     remoteQuerry,
-    searchHistory
+    searchHistory,
+    tagQuerry
   },
   computed: {
     ...mapGetters([
