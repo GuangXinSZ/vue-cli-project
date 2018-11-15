@@ -11,7 +11,7 @@
     <div>测试</div>
     <search-history :name="historyName" @handleOut="querrySearch"></search-history>
     <div>3</div>
-    <tag-querry></tag-querry>
+    <tag-querry :tagList="tagList" @querryAll="querryAll" @querryTag="querryTag"></tag-querry>
   </div>
 </template>
 
@@ -40,6 +40,11 @@ export default {
   },
   data () {
     return {
+      tagList: [
+        {isEnable: false, title: '2'},
+        {isEnable: false, title: '1'},
+        {isEnable: false, title: '3'}
+      ],
       fileList: [],
       citys: [],
       size: 'mini',
@@ -82,6 +87,12 @@ export default {
         this.arr.push(item)
         this.$set(item, 'active', true)
       }
+    },
+    querryTag () {
+      console.log('123')
+    },
+    querryAll () {
+      console.log('456')
     },
     querrySearch (value) {
       console.log(value)
