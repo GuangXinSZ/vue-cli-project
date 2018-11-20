@@ -6,4 +6,4 @@
 >>>>> 5: store (vuex)
 >>>>>> 6: utils (存放一些原生js写法)
 ## 当前封装组建
-> 分页，搜索历史，远程搜索，select，图片上传，便签搜索，prmise包elementUI组建。
+> 分页，搜索历史，远程搜索，select，图片上传，标签搜索，prmise包elementUI组建。
