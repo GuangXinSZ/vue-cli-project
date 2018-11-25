@@ -12,6 +12,7 @@
     <search-history :name="historyName" @handleOut="querrySearch"></search-history>
     <div>3</div>
     <tag-querry :tagList="tagList" @querryAll="querryAll" @querryTag="querryTag"></tag-querry>
+    <el-button @click="addList('a')">点击</el-button>
   </div>
 </template>
 
@@ -40,6 +41,7 @@ export default {
   },
   data () {
     return {
+      list: ['a', 'b', 'c'],
       tagList: [
         {isEnable: false, title: '2'},
         {isEnable: false, title: '1'},
@@ -70,6 +72,13 @@ export default {
     ...mapMutations({
       set_city: 'SET_CITY'
     }),
+    addList (value) {
+      let isEnable = this.list.includes(value)
+      if (isEnable) {
+        return
+      }
+      this.list.push(value)
+    },
     async init () {
       // 调用接口例子
       let res = await api.fetchCycle()
