@@ -13,6 +13,7 @@
     <div>3</div>
     <tag-querry :tagList="tagList" @querryAll="querryAll" @querryTag="querryTag"></tag-querry>
     <el-button @click="addList('a')">点击</el-button>
+    {{city}}
   </div>
 </template>
 
@@ -73,6 +74,7 @@ export default {
       set_city: 'SET_CITY'
     }),
     addList (value) {
+      this.set_city('2')
       let isEnable = this.list.includes(value)
       if (isEnable) {
         return

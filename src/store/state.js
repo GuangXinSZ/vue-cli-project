@@ -1,5 +1,5 @@
 const state = {
-  city: '',
+  city: '111111',
   cityList: [],
   fullScreen: true,
   player: false
