@@ -14,6 +14,7 @@
     <tag-querry :tagList="tagList" @querryAll="querryAll" @querryTag="querryTag"></tag-querry>
     <el-button @click="addList('a')">点击</el-button>
     {{city}}
+    <quill-editor></quill-editor>
   </div>
 </template>
 
@@ -25,6 +26,7 @@ import selectItem from '../../components/selectItem'
 import remoteQuerry from '../../components/remoteQuerry'
 import searchHistory from '../../components/searchHistory'
 import tagQuerry from '../../components/tagQuerry'
+import quillEditor from '../../components/ue'
 
 export default {
   name: 'home',
@@ -33,7 +35,8 @@ export default {
     selectItem,
     remoteQuerry,
     searchHistory,
-    tagQuerry
+    tagQuerry,
+    quillEditor
   },
   computed: {
     ...mapGetters([
