@@ -14,7 +14,38 @@
     <tag-querry :tagList="tagList" @querryAll="querryAll" @querryTag="querryTag"></tag-querry>
     <el-button @click="addList('a')">点击</el-button>
     {{city}}
-    <quill-editor></quill-editor>
+    <!-- <quill-editor></quill-editor> -->
+      <el-form ref="ruleForm"  :model="form">
+          <el-form-item label="店铺名称:" >
+            <el-input v-model="form.name" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item class="item-from" label="店铺区域:" >
+            <el-select v-model="form.provinceid" placeholder="请选择活动区域" clearable value-key="key" @change="selectCity">
+                 <el-option
+                  v-for="(item,index) in citys"
+                  :key="index"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
+            </el-select>
+            <el-select class="item-from" v-model="form.cityid" placeholder="请选择活动区域"  @change="selectArea">
+               <el-option
+                  v-for="(item,index) in areaList"
+                  :key="index"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
+            </el-select>
+            <el-select class="item-from" v-model="form.areaid" placeholder="请选择活动区域">
+             <el-option
+                  v-for="(item,index) in adressList"
+                  :key="index"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
   </div>
 </template>
 
@@ -27,6 +58,8 @@ import remoteQuerry from '../../components/remoteQuerry'
 import searchHistory from '../../components/searchHistory'
 import tagQuerry from '../../components/tagQuerry'
 import quillEditor from '../../components/ue'
+
+var commonCityData = require('@/server/city.js')
 
 export default {
   name: 'home',
@@ -45,6 +78,16 @@ export default {
   },
   data () {
     return {
+      form: {
+        token: localStorage.getItem('token'),
+        id: null,
+        provinceid: null,
+        cityid: null,
+        areaid: null,
+        address: null,
+        name: null,
+        phone: null
+      },
       list: ['a', 'b', 'c'],
       tagList: [
         {isEnable: false, title: '2'},
@@ -69,7 +112,10 @@ export default {
         { 'value': '新旺角茶餐厅', 'address': '上海市普陀区真北路988号创邑金沙谷6号楼113' },
         { 'value': '泷千家(天山西路店)', 'address': '天山西路438号' }
       ],
-      historyName: 'arr_history'
+      historyName: 'arr_history',
+      citys: null,
+      areaList: [],
+      adressList: null
     }
   },
   methods: {
@@ -110,10 +156,63 @@ export default {
     },
     querrySearch (value) {
       console.log(value)
+    },
+    initCityData (level, obj) {
+      let pinkArray = []
+      if (level == 1) {
+         for (var i = 0; i < commonCityData.cityData.length; i++) {
+          let params = {
+            id: commonCityData.cityData[i].id,
+            name: commonCityData.cityData[i].name
+          }
+          pinkArray.push(params);
+        }
+      } else if (level == 2) {
+        var dataArray = obj.cityList
+        for (var i = 0; i < dataArray.length; i++) {
+          pinkArray.push(dataArray[i].name);
+        }
+      } else if (level == 3) {
+        var dataArray = obj.districtList
+        for (var i = 0; i < commonCityData.cityData.length; i++) {
+          let params = {
+            id: commonCityData.cityData[i].id,
+            name: commonCityData.cityData[i].name
+          }
+          pinkArray.push(params);
+        }
+      }
+
+      this.citys = pinkArray
+    },
+      // 选择市
+    selectCity (id) {
+      // this.queryId.provinceid = id
+       for (var i = 0; i < commonCityData.cityData.length; i++) {
+         if (id == commonCityData.cityData[i].id) {
+           let res = commonCityData.cityData[i]
+           for (let j in res.cityList) {
+             this.areaList.push(res.cityList[j])
+           }
+          //  this.areaList = res.cityList
+           console.log(this.areaList)
+         }
+       }
+    },
+   async selectArea (id) {
+      let arrPick = []
+      let areaList = this.areaList
+      for (let i = 0; i < areaList.length; i++) {
+        if (areaList[i].id == id) {
+          arrPick = areaList[i].districtList
+        }
+      }
+      this.adressList = arrPick
     }
   },
   created () {
     this.init()
+    this.initCityData(1)
   }
 }
 </script>
