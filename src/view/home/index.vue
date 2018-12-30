@@ -134,6 +134,7 @@ export default {
       // 调用接口例子
       let res = await api.fetchCycle()
       console.log(res)
+      console.log('123')
     },
     btnClick (item, index) {
       if (item.active) {
