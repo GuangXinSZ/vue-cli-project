@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div></div>
+    <div>11111</div>
     <!-- <file-upload></file-upload>
     <div>
       <el-button :class="{'bg': item.active}" v-for="(item, index) in selectButton" :key="index" @click="btnClick(item, index)">{{item.name}}</el-button>
