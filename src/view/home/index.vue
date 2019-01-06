@@ -47,6 +47,7 @@
             </el-select>
           </el-form-item>
         </el-form>
+        <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
   </div>
 </template>
 
@@ -59,6 +60,7 @@ import remoteQuerry from '../../components/remoteQuerry'
 import searchHistory from '../../components/searchHistory'
 import tagQuerry from '../../components/tagQuerry'
 import quillEditor from '../../components/ue'
+import UE from '../../components/ueditor'
 
 var commonCityData = require('@/server/city.js')
 
@@ -70,7 +72,8 @@ export default {
     remoteQuerry,
     searchHistory,
     tagQuerry,
-    quillEditor
+    quillEditor,
+    UE
   },
   computed: {
     ...mapGetters([
@@ -116,13 +119,27 @@ export default {
       historyName: 'arr_history',
       citys: null,
       areaList: [],
-      adressList: null
+      adressList: null,
+      defaultMsg: '这里是UE测试',
+      config: {
+        initialFrameWidth: null,
+        initialFrameHeight: 200
+      }
     }
   },
   methods: {
     ...mapMutations({
       set_city: 'SET_CITY'
     }),
+    getUEContent() {
+      let content = this.$refs.ue.getUEContent();
+      this.$notify({
+        title: '获取成功，可在控制台查看！',
+        message: content,
+        type: 'success'
+      })
+      console.log(content)
+    },
     addList (value) {
       this.set_city('2')
       let isEnable = this.list.includes(value)
