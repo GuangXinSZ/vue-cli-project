@@ -47,7 +47,14 @@
             </el-select>
           </el-form-item>
         </el-form>
-        <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
+        <div v-for="(item, index) in authJson" :key="index">
+          <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+          <div style="margin: 15px 0;"></div>
+          <el-checkbox-group v-model="item.checkedCities" @change="handleCheckedCitiesChange">
+            <el-checkbox v-for="(ele, index) in item.cities" :label="city" :key="index">{{ele}}</el-checkbox>
+          </el-checkbox-group>
+        </div>
+        <!-- <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE> -->
   </div>
 </template>
 
@@ -63,6 +70,7 @@ import quillEditor from '../../components/ue'
 import UE from '../../components/ueditor'
 
 var commonCityData = require('@/server/city.js')
+const cityOptions = ['上海', '北京', '广州', '深圳']
 
 export default {
   name: 'home',
@@ -124,13 +132,36 @@ export default {
       config: {
         initialFrameWidth: null,
         initialFrameHeight: 200
-      }
+      },
+      authJson: [
+        {
+          checkAll: false,
+          checkedCities: ['上海', '北京', '广州'],
+          cities: ['上海', '北京', '广州', '深圳'],
+          isIndeterminate: true
+        },
+        {
+          checkAll: false,
+          checkedCities: ['上海', '北京', '广州'],
+          cities: ['上海', '北京', '广州', '深圳'],
+          isIndeterminate: true
+        }
+      ],
     }
   },
   methods: {
     ...mapMutations({
       set_city: 'SET_CITY'
     }),
+    handleCheckAllChange(val) {
+      this.checkedCities = val ? this.cities : [];
+      this.isIndeterminate = false;
+    },
+    handleCheckedCitiesChange(value) {
+      let checkedCount = value.length;
+      this.checkAll = checkedCount === this.cities.length;
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+    },
     getUEContent() {
       let content = this.$refs.ue.getUEContent();
       this.$notify({
