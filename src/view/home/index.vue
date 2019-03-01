@@ -47,15 +47,15 @@
             </el-select>
           </el-form-item>
         </el-form>
-        <div v-for="(item, index) in authJson" :key="index">
-          <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-          <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="item.checkedCities" @change="handleCheckedCitiesChange">
-            <el-checkbox v-for="(ele, index) in item.cities" :label="city" :key="index">{{ele}}</el-checkbox>
-          </el-checkbox-group>
-        </div>
         <!-- <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE> -->
-  </div>
+    <div v-for="(item, index) in adminAuth" :key="index">
+      <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.checkAll" @change="handleCheckAllChange(index, $event)">全选</el-checkbox>
+      <div style="margin: 15px 0;"></div>
+      <el-checkbox-group v-model="item.checkedCities" @change="handleCheckedCitiesChange(index, $event)">
+        <el-checkbox v-for="(ele, index) in item.cities" :label="ele" :key="index">{{ele}}</el-checkbox>
+      </el-checkbox-group>
+    </div>
+  </div> 
 </template>
 
 <script>
@@ -90,6 +90,20 @@ export default {
   },
   data () {
     return {
+      adminAuth:[
+        {
+          checkAll: false,
+          cities: ['上海', '北京', '广州', '深圳'],
+          checkedCities: ['上海', '北京'],
+          isIndeterminate: true
+        },
+         {
+          checkAll: false,
+          cities: ['上海', '北京', '广州', '深圳'],
+          checkedCities: ['上海', '北京'],
+          isIndeterminate: true
+        }
+      ],
       form: {
         token: localStorage.getItem('token'),
         id: null,
@@ -132,35 +146,22 @@ export default {
       config: {
         initialFrameWidth: null,
         initialFrameHeight: 200
-      },
-      authJson: [
-        {
-          checkAll: false,
-          checkedCities: ['上海', '北京', '广州'],
-          cities: ['上海', '北京', '广州', '深圳'],
-          isIndeterminate: true
-        },
-        {
-          checkAll: false,
-          checkedCities: ['上海', '北京', '广州'],
-          cities: ['上海', '北京', '广州', '深圳'],
-          isIndeterminate: true
-        }
-      ],
+      }
     }
   },
   methods: {
     ...mapMutations({
       set_city: 'SET_CITY'
     }),
-    handleCheckAllChange(val) {
-      this.checkedCities = val ? this.cities : [];
-      this.isIndeterminate = false;
+    handleCheckAllChange(index, val) {
+      this.adminAuth[index].checkedCities = val ? this.adminAuth[index].cities : [];
+      this.adminAuth[index].isIndeterminate = false;
     },
-    handleCheckedCitiesChange(value) {
+    handleCheckedCitiesChange(index, value) {
       let checkedCount = value.length;
-      this.checkAll = checkedCount === this.cities.length;
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+      this.adminAuth[index].checkAll = checkedCount === this.adminAuth[index].cities.length;
+      console.log(checkedCount === this.adminAuth[index].cities.length)
+      this.adminAuth[index].isIndeterminate = checkedCount > 0 && checkedCount < this.adminAuth[index].cities.length;
     },
     getUEContent() {
       let content = this.$refs.ue.getUEContent();
