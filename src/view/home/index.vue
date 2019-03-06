@@ -47,12 +47,11 @@
             </el-select>
           </el-form-item>
         </el-form>
-        <!-- <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE> -->
     <div v-for="(item, index) in adminAuth" :key="index">
       <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.checkAll" @change="handleCheckAllChange(index, $event)">全选</el-checkbox>
       <div style="margin: 15px 0;"></div>
       <el-checkbox-group v-model="item.checkedCities" @change="handleCheckedCitiesChange(index, $event)">
-        <el-checkbox v-for="(ele, index) in item.cities" :label="ele" :key="index">{{ele}}</el-checkbox>
+        <el-checkbox v-for="(ele, index) in item.cities" :label="ele" :key="index">{{ele.name}}</el-checkbox>
       </el-checkbox-group>
     </div>
   </div> 
@@ -68,6 +67,7 @@ import searchHistory from '../../components/searchHistory'
 import tagQuerry from '../../components/tagQuerry'
 import quillEditor from '../../components/ue'
 import UE from '../../components/ueditor'
+import { constants } from 'fs';
 
 var commonCityData = require('@/server/city.js')
 const cityOptions = ['上海', '北京', '广州', '深圳']
@@ -93,14 +93,34 @@ export default {
       adminAuth:[
         {
           checkAll: false,
-          cities: ['上海', '北京', '广州', '深圳'],
-          checkedCities: ['上海', '北京'],
+          cities: [
+            {
+              key: '1',
+              name: '上海'
+            }
+          ],
+          checkedCities: [
+            {
+              key: '1',
+              name: '上海'
+            }
+          ],
           isIndeterminate: true
         },
          {
           checkAll: false,
-          cities: ['上海', '北京', '广州', '深圳'],
-          checkedCities: ['上海', '北京'],
+          cities: [
+            {
+              key: '1',
+              name: '上海'
+            }
+          ],
+          checkedCities: [
+            {
+              key: '1',
+              name: '上海'
+            }
+          ],
           isIndeterminate: true
         }
       ],
@@ -158,6 +178,7 @@ export default {
       this.adminAuth[index].isIndeterminate = false;
     },
     handleCheckedCitiesChange(index, value) {
+      console.log(index, value)
       let checkedCount = value.length;
       this.adminAuth[index].checkAll = checkedCount === this.adminAuth[index].cities.length;
       console.log(checkedCount === this.adminAuth[index].cities.length)
@@ -264,6 +285,11 @@ export default {
   created () {
     this.init()
     this.initCityData(1)
+    for (let i = 0; i < this.adminAuth.length; i++) {
+      for (let key in this.adminAuth[i].cities.length) {
+        this.$set(this.adminAuth[i].checkedCities, key, [])
+      }
+    }
   }
 }
 </script>
